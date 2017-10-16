@@ -2,7 +2,7 @@
 """
 testunit written for my second homework for StartingUp2017 Project
 
-@author: sama
+@author: Mostafa Ahangarha
 """
 
 import unittest
