@@ -101,6 +101,21 @@ def close_loop():
             else:
                 inloop = False
 
+def verify_loop(code):
+    code = re.sub('[^[\]]', '', code)
+    control = 0
+    for c in code:
+        if c == '[':
+            control += 1
+        else:
+            control -= 1
+        if control < 0:
+            raise ValueError("ERROR: Syntax error! Recheck loops made by [ and ].")
+        
+    if control != 0:
+        raise ValueError("ERROR: Syntax error! Recheck loops made by [ and ].")
+            
+
 # =================================
 # Running the BF code
 def execute(inputCode=''):
@@ -116,6 +131,8 @@ def execute(inputCode=''):
     
     # removing all non-BF characters, leaving only +-><[].
     code = re.sub('[^\+-\.\[\]<>]', '', code)
+    
+    verify_loop(code)
     
     # Check the cleaned up input not to be empty
     if (code == ''):

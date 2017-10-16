@@ -38,6 +38,12 @@ class TestAhangarha(unittest.TestCase):
         
         code = 'blah'
         self.assertRaises(ValueError, ahangarha.execute, code)
+        
+        code = '++[++'
+        self.assertRaises(ValueError, ahangarha.execute, code)
+        
+        code = '++[++][]]'
+        self.assertRaises(ValueError, ahangarha.execute, code)
 
 if __name__ == '__main__':
     unittest.main()
