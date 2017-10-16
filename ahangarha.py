@@ -82,11 +82,17 @@ def execute(inputCode=''):
     resetVariables()
     
     code = inputCode
-    if (code is None) or (code == ''):
-        return("ERROR: No BF code is provided")
+    
+    # Check the input not to be empty
+    if (code == ''):
+        raise ValueError("ERROR: Empty code!")
     
     # removing all non-BF characters, leaving only +-><[].
     code = re.sub('[^\+-\.\[\]<>]', '', code)
+    
+    # Check the cleaned up input not to be empty
+    if (code == ''):
+        raise ValueError("ERROR: No BrainFuck character is in the code!")
     
     while i < len(code):
         # map the inputs to the function blocks

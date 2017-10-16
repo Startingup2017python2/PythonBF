@@ -10,31 +10,31 @@ import ahangarha
 
 class TestAhangarha(unittest.TestCase):
     
-    def test_inc(self):
+    def test_operations(self):
         code = "+"*65 + "."
-        result = ahangarha.execute(code)
-        self.assertEqual(result, 'A')
+        self.assertEqual(ahangarha.execute(code), 'A')
 
-    def test_dec(self):
         code = "+"*66 + '-.'
-        result = ahangarha.execute(code)
-        self.assertEqual(result, 'A')
+        self.assertEqual(ahangarha.execute(code), 'A')
     
-    def test_shift_right(self):
         code = "+"*65 + '.>' + '+'*65 + '.'
-        result = ahangarha.execute(code)
-        self.assertEqual(result, 'AA')
+        self.assertEqual(ahangarha.execute(code), 'AA')
     
-    def test_shift_right_left(self):
         code = "+"*64 + '>' + '+'*65 + '<+.>.'
-        result = ahangarha.execute(code)
-        self.assertEqual(result, 'AA')
-    
-    def test_simple_loop(self):
+        self.assertEqual(ahangarha.execute(code), 'AA')
+
         code = '++++++++[>++++++++<-]>+.'
-        result = ahangarha.execute(code)
-        self.assertEqual(result, 'A')
+        self.assertEqual(ahangarha.execute(code), 'A')
+    
+    def test_abnormal_input(self):
+        code = 'blah' + '+'*65 + '.' + 'blah'
+        self.assertEqual(ahangarha.execute(code), 'A')
         
+        code = ''
+        self.assertRaises(ValueError, ahangarha.execute, code)
+        
+        code = 'blah'
+        self.assertRaises(ValueError, ahangarha.execute, code)
 
 if __name__ == '__main__':
     unittest.main()
