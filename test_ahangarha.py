@@ -25,6 +25,9 @@ class TestAhangarha(unittest.TestCase):
 
         code = '++++++++[>++++++++<-]>+.'
         self.assertEqual(ahangarha.execute(code), 'A')
+        
+        code = "++[>++++[>++++++++<-]<-]>>+."
+        self.assertEqual(ahangarha.execute(code), 'A')
     
     def test_abnormal_input(self):
         code = 'blah' + '+'*65 + '.' + 'blah'

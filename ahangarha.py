@@ -61,19 +61,46 @@ def open_loop():
     global cell, pointer, i, code
     
     if cell[pointer]==0:
-        while code[i]!="]":
-            i += 1
+
+        inloop = True
+        ignore = 0
+
+        while inloop==True:
+            i += 1 # next
             
-        
+            if code[i] != ']':
+                if code[i] == '[': # inner loop
+                    ignore += 1
+                
+            elif code[i] == ']' and ignore > 0: #closing of inner loop, ignore
+                ignore -= 1
+                
+            else:
+                inloop = False
 
 # closing loop (])
 def close_loop():
     global cell, pointer, i, code
     
     if cell[pointer]!=0:
-        while code[i]!="[":
-            i -= 1
-    
+
+        inloop = True
+        ignore = 0
+        while inloop==True:
+            
+            i -= 1 # previous
+            
+            if code[i] != '[':
+                
+                if code[i] == ']': # inner loop
+                    ignore += 1
+                
+            elif code[i] == '[' and ignore > 0: #opening of inner loop, ignore
+                ignore -= 1
+
+            else:
+                inloop = False
+
 # =================================
 # Running the BF code
 def execute(inputCode=''):
