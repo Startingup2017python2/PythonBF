@@ -138,21 +138,28 @@ def execute(inputCode=''):
     if (code == ''):
         raise ValueError("ERROR: No BrainFuck character is in the code!")
     
+    # map the inputs to the function blocks
+    operate = {
+       '+' : inc,
+       '-' : dec,
+       '>' : shift_right,
+       '<' : shift_left,
+       '.' : output,
+       '[' : open_loop,
+       ']' : close_loop,
+    }
+    
     while i < len(code):
-        # map the inputs to the function blocks
-        operate = {
-           '+' : inc,
-           '-' : dec,
-           '>' : shift_right,
-           '<' : shift_left,
-           '.' : output,
-           '[' : open_loop,
-           ']' : close_loop,
-        }
-        
         # c as charater
         c = code[i]
         operate[c]()
         i += 1
     
     return(result)
+    
+
+if __name__ == '__main__':
+    result = execute("""
+            ++++++++[>++++++++<-]>+.
+        """)
+    print(result)
